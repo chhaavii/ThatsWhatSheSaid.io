@@ -7,26 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { TrumpModel } from '@/components/TrumpModel'
 
-// --- ASCII world map because pixels are overrated
-const asciiWorldMap = String.raw`
-                 _.-""""-._
-             .-""          ""-.
-           .'    .-""""-.      '.
-          /    .'  _  _  '.      \
-         /    /   (_) (_)  \      \
-        ;    ;  .-""""""-.  ;      ;
-        |    | /  _  _    \ |      |
-        |    | | (_)(_)    ||      |
-   _    ;    | \   ^    _ / ;      ;
-  / \   ;    ;  '-.__.-'  ; ;      ;
- / _ \  \    \            / /     /
-| (_) |  '.   '._      _.' .'    /
- \___/     '-.   """"""  .-'   .'
-             '-.        .-'  .'
-                '------'  .'
-                    '---'
-`
-
 // --- meme chaos carefully curated by CHHAVI :)
 const allPeople = ['PUTIN', 'BIDEN', 'TRUMP', 'SUNAK', 'ZELENSKYY', 'KIM', 'XI', 'MACRON', 'SCHOLZ', 'MODI']
 
@@ -289,17 +269,16 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-background"
+      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
+      style={{
+        backgroundImage: 'url(/techno-map.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
     >
-      {/* ASCII world map background */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-50 md:opacity-60">
-        <pre className="text-[7px] leading-[7px] md:text-[9px] md:leading-3 font-mono text-muted-foreground whitespace-pre text-center">
-          {asciiWorldMap}
-        </pre>
-      </div>
-
-      {/* Overlay for readability (lighter so ASCII is visible) */}
-      <div className="absolute inset-0 bg-black/20 md:bg-black/30 backdrop-blur-[2px]" />
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       <main className="w-full max-w-2xl relative z-10">
         {/* Header */}
