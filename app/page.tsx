@@ -271,14 +271,15 @@ export default function Home() {
     <div
       className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
       style={{
-        backgroundImage: 'url(/techno-map.jpg)',
+        // relative path so it works on GitHub Pages and locally
+        backgroundImage: 'url(techno-map.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      {/* Overlay for readability (keep map visible) */}
+      <div className="absolute inset-0 bg-black/35 md:bg-black/40 backdrop-blur-[2px]" />
 
       <main className="w-full max-w-2xl relative z-10">
         {/* Header */}
