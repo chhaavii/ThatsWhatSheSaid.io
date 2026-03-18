@@ -292,14 +292,14 @@ export default function Home() {
       className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-background"
     >
       {/* ASCII world map background */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-15 md:opacity-20">
-        <pre className="text-[8px] leading-[8px] md:text-xs md:leading-3 font-mono text-muted-foreground whitespace-pre text-center">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-50 md:opacity-60">
+        <pre className="text-[7px] leading-[7px] md:text-[9px] md:leading-3 font-mono text-muted-foreground whitespace-pre text-center">
           {asciiWorldMap}
         </pre>
       </div>
 
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black/40 md:bg-black/50 backdrop-blur-sm" />
+      {/* Overlay for readability (lighter so ASCII is visible) */}
+      <div className="absolute inset-0 bg-black/20 md:bg-black/30 backdrop-blur-[2px]" />
 
       <main className="w-full max-w-2xl relative z-10">
         {/* Header */}
