@@ -2,7 +2,7 @@
 
 // --- MADE BY CHHAVI :)
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { TrumpModel } from '@/components/TrumpModel'
@@ -227,6 +227,9 @@ function pickRandomQuestions(pool: Question[], count: number): Question[] {
 
 // --- tiny brain: hardcode questions, galaxy brain: this hook
 export default function Home() {
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [musicOn, setMusicOn] = useState(true)
+
   const allQuestions = useMemo(() => buildQuestionPool(), [])
   const [questions, setQuestions] = useState<Question[]>(() => pickRandomQuestions(allQuestions, 6))
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -267,6 +270,55 @@ export default function Home() {
     setQuizComplete(false)
   }
 
+  useEffect(() => {
+    const el = audioRef.current
+    if (!el) return
+
+    // --- autoplay is blocked on many browsers unless the user interacts
+    const tryPlay = async () => {
+      try {
+        if (musicOn) await el.play()
+      } catch {
+        // ignore: we'll retry on first click/tap
+      }
+    }
+
+    tryPlay()
+
+    const unlock = () => {
+      tryPlay()
+      window.removeEventListener('pointerdown', unlock)
+      window.removeEventListener('keydown', unlock)
+    }
+
+    window.addEventListener('pointerdown', unlock)
+    window.addEventListener('keydown', unlock)
+
+    return () => {
+      window.removeEventListener('pointerdown', unlock)
+      window.removeEventListener('keydown', unlock)
+    }
+  }, [musicOn])
+
+  const handleToggleMusic = () => {
+    const el = audioRef.current
+    if (!el) {
+      setMusicOn((v) => !v)
+      return
+    }
+
+    if (musicOn) {
+      el.pause()
+      el.currentTime = 0
+      setMusicOn(false)
+    } else {
+      setMusicOn(true)
+      el.play().catch(() => {
+        // will retry on next user interaction
+      })
+    }
+  }
+
   return (
     <div
       className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
@@ -282,13 +334,15 @@ export default function Home() {
       <div className="absolute inset-0 bg-black/35 md:bg-black/40 backdrop-blur-[2px]" />
 
       <main className="w-full max-w-2xl relative z-10">
-        {/* Tiny side music player — MADE BY CHHAVI :) */}
-        <div className="fixed bottom-4 left-4 z-50">
-          <audio
-            src="/cross-my-heart.mp3"
-            controls
-            loop
-          />
+        {/* Music — MADE BY CHHAVI :) */}
+        <audio ref={audioRef} src="cross-my-heart.mp3" autoPlay loop preload="auto" />
+        <div className="fixed top-4 left-4 z-50">
+          <Button
+            onClick={handleToggleMusic}
+            className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold px-4 py-2"
+          >
+            {musicOn ? 'Stop Music' : 'Play Music'}
+          </Button>
         </div>
 
         {/* Header */}
