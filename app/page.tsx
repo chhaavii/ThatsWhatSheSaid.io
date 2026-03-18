@@ -282,6 +282,15 @@ export default function Home() {
       <div className="absolute inset-0 bg-black/35 md:bg-black/40 backdrop-blur-[2px]" />
 
       <main className="w-full max-w-2xl relative z-10">
+        {/* Tiny side music player — MADE BY CHHAVI :) */}
+        <div className="fixed bottom-4 left-4 z-50">
+          <audio
+            src="/cross-my-heart.mp3"
+            controls
+            loop
+          />
+        </div>
+
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-3">
