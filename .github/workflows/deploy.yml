@@ -24,20 +24,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
 
       - name: Build static site (Next.js export)
         env:
           NEXT_TELEMETRY_DISABLED: 1
-        run: pnpm next build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
